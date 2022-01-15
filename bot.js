@@ -3,7 +3,7 @@ const { Telegraf } = require('telegraf')
 const BOT_TOKEN = "5060926324:AAEQNa1y_iMS-zVBM7GTN2-_g7OabevRsQ8"
 const bot = new Telegraf(BOT_TOKEN)
 bot.command("start", async(ctx) => {
-  ctx.reply("Usage: /find [word]")
+  ctx.reply("*Welcome!\nI'm your friendly dictionary bot!\nYou can use me to find about words which are new to you, or you don't know it's meaning, you can find words details like: Meaning, Phonetic, Synonyms, antonyms, part of speech, origin, example usage of word etc.\n\nUsage: /find [word]*", {parse_mode: "Markdown", reply_to_message_id: ctx.message.message_id})
   return
 })
 bot.command("find", (ctx) => {
@@ -12,7 +12,7 @@ var message = ctx.message.text
 var word = message.split(" ")[1]
 axios.get('https://api.dictionaryapi.dev/api/v2/entries/en/'+word).then(resp => {
 const obj = resp.data
-if(obj.title){
+if(!obj){
   ctx.reply("*Oops! We couldn't find out this word in our dictionary!*",{parse_mode: "Markdown", reply_to_message_id: ctx.message.message_id})
   return
 }
